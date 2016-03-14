@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
-    diplay(i);
+    diplay(0);
     }
 
     private void diplay(int number) {
@@ -29,18 +29,40 @@ public class MainActivity extends AppCompatActivity {
         priceTextView.setText(myString);
     }
 
-    int i =0;
+        public void add(View view){
+            //從TextView 取得數量，數量加 1 並顯示
+            int quantity = getQuantity();
+            diplay(++quantity);
+        }
 
-    public void add(View view) {
-        a(++i);
-    }
-
-    public void back(View view) {
-        a(--i);
-    }
-
-    public void a(int nuber){
+    private int getQuantity() {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText(String.valueOf(nuber));
+        //將文字轉成整數
+        String quantityString = quantityTextView.getText().toString();
+        return Integer.parseInt(quantityString);
     }
+
+    public void back(View view){
+        //從TextView 取得數量，數量加 1 並顯示
+        int quantity = getQuantity();
+            if(quantity > 0) {
+                diplay(--quantity);
+            }
+    }
+    //public void a(int nuber){
+       // TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        //quantityTextView.setText(String.valueOf(nuber));
+    //}
+    //int i =0;
+
+  //  public void add(View view) {
+    //    a(++i);
+   // }
+
+   // public void back(View view) {
+   // if(i > 0){
+   // a(--i);}
+   // }
+
+
 }
