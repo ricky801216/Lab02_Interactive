@@ -8,7 +8,9 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
-
+    //m: Member (Data Member 資料成員)
+    int mquantity = 0;
+    int mprice = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,53 +18,82 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
-    diplay(0);
+
+    display();
     }
 
-    private void diplay(int number) {
+    private void displayer() {
         TextView quantity = (TextView) findViewById(R.id.quantity_text_view);
-        quantity.setText(String.valueOf(number));
+        quantity.setText(String.valueOf(mquantity));
+    }
+    private void display(){
         TextView priceTextView = (TextView) findViewById(R.id.pirce_text_view);
-        int price = 10;//價錢
-        int total = price * number;
+        int total = mprice * mquantity;
         String myString = NumberFormat.getCurrencyInstance().format(total);
+        //StringBuilder優化display()
+        //String message = myString + (mquantity == 0? "\nFree!!" : "\nThankyou!!");
+        //priceTextView.setText(message);
         priceTextView.setText(myString);
+
+        if(mquantity > 0){
+            priceTextView.setText(String.valueOf(mquantity));
+            String myStringto = NumberFormat.getCurrencyInstance().format(total);
+            priceTextView.setText(myStringto + "\nThankyou!!");
+        }
+        else if(mquantity == 0){
+            priceTextView.setText(String.valueOf(mquantity));
+            String myStringto = NumberFormat.getCurrencyInstance().format(total);
+            priceTextView.setText(myStringto + "\nFree!!");
+        }
+
     }
 
         public void add(View view){
-            //從TextView 取得數量，數量加 1 並顯示
-            int quantity = getQuantity();
-            diplay(++quantity);
+           // 從TextView 取得數量，數量加 1 並顯示
+          ++mquantity;
+            displayer();
+            resettotalPrice();
         }
-
-    private int getQuantity() {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        //將文字轉成整數
-        String quantityString = quantityTextView.getText().toString();
-        return Integer.parseInt(quantityString);
-    }
-
     public void back(View view){
-        //從TextView 取得數量，數量加 1 並顯示
-        int quantity = getQuantity();
-            if(quantity > 0) {
-                diplay(--quantity);
-            }
-    }
-    //public void a(int nuber){
-       // TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        //quantityTextView.setText(String.valueOf(nuber));
-    //}
-    //int i =0;
+        // 從TextView 取得數量，數量加 1 並顯示
 
-  //  public void add(View view) {
-    //    a(++i);
+        if(mquantity > 0) {
+            --mquantity;
+            displayer();
+            resettotalPrice();
+        }
+    }
+    public void resettotalPrice(){
+        TextView priceTextView = (TextView) findViewById(R.id.pirce_text_view);
+        priceTextView.setText("");
+    }
+    //private int getQuantity() {
+      //  TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+       // 將文字轉成整數
+      //  String quantityString = quantityTextView.getText().toString();
+
+       // return Integer.parseInt(quantityString);
+  //  }
+
+
+
+
+  //  public void a(int nuber){
+     //   TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+      //  quantityTextView.setText(String.valueOf(nuber));
    // }
+
+
+   // public void add(View view) {
+    //    a(++mquantity);
+
+  // }
 
    // public void back(View view) {
-   // if(i > 0){
-   // a(--i);}
+   // if(mquantity > 0){
+   // a(--mquantity);
    // }
+  //  }
 
 
 }
