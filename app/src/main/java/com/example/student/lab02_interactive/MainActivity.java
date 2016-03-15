@@ -9,8 +9,10 @@ import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
     //m: Member (Data Member 資料成員)
-    int mquantity = 0;
-    int mprice = 20;
+    private int mquantity = 0;
+    private int mprice = 20;
+    private final  String mNT$ = "NT$";
+    private  StringBuilder mTotalPriceMessage = new StringBuilder(mNT$);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +31,15 @@ public class MainActivity extends AppCompatActivity {
     private void display(){
         TextView priceTextView = (TextView) findViewById(R.id.pirce_text_view);
         int total = mprice * mquantity;
-        String myString = NumberFormat.getCurrencyInstance().format(total);
+        int startIndex = mNT$.length();
+        int endIndex = mTotalPriceMessage.length();
+        mTotalPriceMessage.delete(startIndex,endIndex).append(total)
+                .append(mquantity == 0? "\nFree!!" : "\nThankyou!!");
+       //String myString = NumberFormat.getCurrencyInstance().format(total);
         //StringBuilder優化display()
         //String message = myString + (mquantity == 0? "\nFree!!" : "\nThankyou!!");
         //priceTextView.setText(message);
-        priceTextView.setText(myString);
+        priceTextView.setText(mTotalPriceMessage);
 
         if(mquantity > 0){
             priceTextView.setText(String.valueOf(mquantity));
