@@ -3,6 +3,7 @@ package com.example.student.lab02_interactive;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -12,7 +13,9 @@ public class MainActivity extends AppCompatActivity {
     private int mquantity = 0;
     private int mprice = 20;
     private final  String mNT$ = "NT$";
-    private  StringBuilder mTotalPriceMessage = new StringBuilder(mNT$);
+    String mName = "鳴人";
+    boolean cb2;
+    //private  StringBuilder mTotalPriceMessage = new StringBuilder(mNT$);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
-
     display();
     }
+
 
     private void displayer() {
         TextView quantity = (TextView) findViewById(R.id.quantity_text_view);
@@ -31,28 +34,42 @@ public class MainActivity extends AppCompatActivity {
     private void display(){
         TextView priceTextView = (TextView) findViewById(R.id.pirce_text_view);
         int total = mprice * mquantity;
-        int startIndex = mNT$.length();
-        int endIndex = mTotalPriceMessage.length();
-        mTotalPriceMessage.delete(startIndex,endIndex).append(total)
-                .append(mquantity == 0? "\nFree!!" : "\nThankyou!!");
-       //String myString = NumberFormat.getCurrencyInstance().format(total);
-        //StringBuilder優化display()
-        //String message = myString + (mquantity == 0? "\nFree!!" : "\nThankyou!!");
-        //priceTextView.setText(message);
-        priceTextView.setText(mTotalPriceMessage);
+       // int startIndex = mNT$.length();
+        //int endIndex = mTotalPriceMessage.length();
+        //mTotalPriceMessage.delete(startIndex, endIndex).append(total)
+             //   .append(mquantity == 0 ? "\nFree!!" : "\nThankyou!!").append("Name"+Name);
+        String myString = NumberFormat.getCurrencyInstance().format(total);
+       // StringBuilder優化display()
+        String message = myString + (mquantity == 0? "\nFree!!" : "\nThankyou!!");
+        priceTextView.setText(message);
+        //priceTextView.setText(mTotalPriceMessage);
 
         if(mquantity > 0){
-            priceTextView.setText(String.valueOf(mquantity));
+           priceTextView.setText(String.valueOf(mquantity));
             String myStringto = NumberFormat.getCurrencyInstance().format(total);
-            priceTextView.setText(myStringto + "\nThankyou!!");
+            priceTextView.setText("Name" + mName + "\n臭豆腐" + "\n加泡菜?" + cb2 + "\n數量" +
+                    mquantity +myStringto + "\nThankyou!!");
         }
         else if(mquantity == 0){
             priceTextView.setText(String.valueOf(mquantity));
             String myStringto = NumberFormat.getCurrencyInstance().format(total);
-            priceTextView.setText(myStringto + "\nFree!!");
+            priceTextView.setText("Name" + mName + "\n臭豆腐" + "\n加泡菜?" + cb2 + "\n數量" +
+                    mquantity +myStringto + "\nFree!!");
         }
-
     }
+
+
+    public void check(View view) {
+        final CheckBox topping_checkbox = (CheckBox) findViewById(R.id.topping_checkbox);
+        if (topping_checkbox.isChecked()) {
+            topping_checkbox.setChecked(false);
+            cb2 = false;
+            topping_checkbox.setChecked(true);
+            cb2 = true;
+        }
+    }
+
+
 
         public void add(View view){
            // 從TextView 取得數量，數量加 1 並顯示
