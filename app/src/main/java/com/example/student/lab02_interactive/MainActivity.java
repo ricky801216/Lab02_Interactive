@@ -96,24 +96,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
    public void check(View view){
-        resettotalPrice();
-        display();
+       resettotalPrice();
+       display();
    }
 
     public void add(View view){
            // 從TextView 取得數量，數量加 1 並顯示
-          ++mquantity;
-            displayer();
+        ++mquantity;
+        displayer();
         resettotalPrice();
         }
     public void back(View view){
         // 從TextView 取得數量，數量加 1 並顯示
-
         if(mquantity > 0) {
             --mquantity;
             displayer();
             resettotalPrice();
         }
+
     }
     public void resettotalPrice(){
         //刪除 mPriceMessage
@@ -125,33 +125,26 @@ public class MainActivity extends AppCompatActivity {
        // TextView priceTextView = (TextView) findViewById(R.id.pirce_text_view);
       //  priceTextView.setText("");
     }
-    //private int getQuantity() {
-      //  TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-       // 將文字轉成整數
-      //  String quantityString = quantityTextView.getText().toString();
 
-       // return Integer.parseInt(quantityString);
-  //  }
+    public void mediator(View view){
+        //moethod forward(轉給其他方法執行)
+        switch (view.getId()){
+            case R.id.topping_checkbox:
+                    check(view);
+            break;
+            case R.id.topping_add:
+                add(view);
+                break;
+            case  R.id.topping_back:
+                back(view);
+                break;
+            case  R.id.topping_order:
+                submitOrder(view);
+                break;
+        }
 
 
-
-
-  //  public void a(int nuber){
-     //   TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-      //  quantityTextView.setText(String.valueOf(nuber));
-   // }
-
-
-   // public void add(View view) {
-    //    a(++mquantity);
-
-  // }
-
-   // public void back(View view) {
-   // if(mquantity > 0){
-   // a(--mquantity);
-   // }
-  //  }
+    }
 
 
 }
